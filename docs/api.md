@@ -112,4 +112,4 @@
 
 自动统计不要求问卷所有者另行授权，但只向逻辑题目作者提供聚合结果。单版结果按每份答卷去重，数字题按答卷等权并给区间分布；文本只显示至少5名不同填写者给出的相同答案。任一非零答卷层面指标或数字区间少于5名不同填写者时，相关答卷层面字段返回`null`并标记`suppression.applied=true`。总览仅合并题型、题干、必答、选项及其ID、校验配置完全一致的版本。第一阶段旧题没有来源关系，不自动纳入。
 
-为兼容先前客户端，`GET/PUT/DELETE /surveys/{id}/cross-survey-statistics/{qid}/consent`及`GET /library/questions/{qid}/versions/{vid}/cross-survey-statistics`仍可调用。旧路径按问卷所有者授权范围计算，与当前页面使用的自动统计路径口径不同。
+为兼容阶段二早期实现的客户端，`GET/PUT/DELETE /surveys/{id}/cross-survey-statistics/{qid}/consent`及`GET /library/questions/{qid}/versions/{vid}/cross-survey-statistics`仍可调用。该授权统计路径并非第一阶段原有功能，按问卷所有者授权范围计算，与当前页面使用的自动统计路径口径不同。

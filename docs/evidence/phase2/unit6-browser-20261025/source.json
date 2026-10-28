@@ -1,0 +1,24 @@
+{
+  "sourceRecord": "output/unit6-regression-20261025/验收记录.md",
+  "sourceSha256": "9b4186077296d40fc09bb323813b52a80ca539e93a289abca32ba24919eef048",
+  "extractedSections": [
+    "M01",
+    "M02",
+    "M03",
+    "M04",
+    "M05",
+    "M06",
+    "M07",
+    "M08",
+    "M09",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "M14",
+    "M15",
+    "M16"
+  ],
+  "execution": "AI-assisted browser operations; M16 simulated HTTP 409",
+  "archivedFile": "验收记录.md"
+}

@@ -23,3 +23,8 @@ Thumbs.db
 
 # Word report is submitted separately
 /reports/
+*.docx
+
+# Machine-specific browser acceptance launcher and proxy; retained locally
+/start-phase2-browser-test.ps1
+/frontend/vite.browser-test.config.ts

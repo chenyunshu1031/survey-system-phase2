@@ -1,0 +1,13 @@
+........................................................................ [ 66%]
+.....................................                                    [100%]
+============================== warnings summary ===============================
+.deps\fastapi\testclient.py:1
+  C:\Users\24222\Desktop\数据库\survey-system\backend\.deps\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_remaining_boundaries.py::test_invalid_auth_claims_are_401_instead_of_server_errors[wrong_algorithm]
+  C:\Users\24222\Desktop\数据库\survey-system\backend\.deps\jwt\api_jwt.py:149: InsecureKeyLengthWarning: The HMAC key is 42 bytes long, which is below the minimum recommended length of 48 bytes for SHA384. See RFC 7518 Section 3.2.
+    return self._jws.encode(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+109 passed, 2 warnings in 27.72s

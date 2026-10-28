@@ -1,0 +1,111 @@
+{
+  "executedAt": "2026-10-28T19:54:58.397420+08:00",
+  "sourceCommit": "eb89d02ae450aa7d26565bede479d0ea44c9cc5d",
+  "backendTree": "8270c3b9c947cdeb85639caa503bb03f3a2cced6",
+  "mongodbUri": "mongodb://127.0.0.1:29149",
+  "freshDatabaseDirectory": true,
+  "originalBusinessDatabaseAccessed": false,
+  "environment": {
+    "RUN_MONGO_INTEGRATION": "1",
+    "RUN_LIBRARY_MONGO_INTEGRATION": "1",
+    "MONGO_TEST_URI": "mongodb://127.0.0.1:29149",
+    "LIBRARY_MONGO_TEST_URI": "mongodb://127.0.0.1:29149",
+    "MONGODB_URI": "mongodb://127.0.0.1:29149",
+    "MONGODB_DB": "phase2_final_evidence",
+    "FRONTEND_ORIGIN": "http://localhost:5173"
+  },
+  "commands": [
+    {
+      "name": "backend-pytest",
+      "command": [
+        "PROJECT\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=PROJECT\\docs\\evidence\\phase2\\regression-20261028\\backend-junit.xml"
+      ],
+      "cwd": "backend",
+      "exitCode": 0,
+      "seconds": 32.36,
+      "log": "backend-pytest.txt"
+    },
+    {
+      "name": "frontend-tests",
+      "command": [
+        "C:\\Users\\24222\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "--test",
+        "PROJECT\\frontend\\tests\\libraryEntry.test.mjs",
+        "PROJECT\\frontend\\tests\\sessionAndTime.test.mjs",
+        "PROJECT\\frontend\\tests\\surveyAnswers.test.mjs"
+      ],
+      "cwd": "frontend",
+      "exitCode": 0,
+      "seconds": 3.55,
+      "log": "frontend-tests.txt"
+    },
+    {
+      "name": "frontend-typecheck",
+      "command": [
+        "C:\\Users\\24222\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "PROJECT\\frontend\\node_modules\\vue-tsc\\bin\\vue-tsc.js",
+        "-b"
+      ],
+      "cwd": "frontend",
+      "exitCode": 0,
+      "seconds": 14.28,
+      "log": "frontend-typecheck.txt"
+    },
+    {
+      "name": "frontend-build",
+      "command": [
+        "C:\\Users\\24222\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "PROJECT\\frontend\\node_modules\\vite\\bin\\vite.js",
+        "build"
+      ],
+      "cwd": "frontend",
+      "exitCode": 0,
+      "seconds": 7.96,
+      "log": "frontend-build.txt"
+    }
+  ],
+  "mongoVersion": "8.3.11",
+  "backend": {
+    "tests": 109,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 109,
+    "realMongoIntegration": 5,
+    "mockAndOther": 104
+  },
+  "remainingTestDatabases": [],
+  "isolatedMongoStopped": true,
+  "frontend": {
+    "tests": 12,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0
+  },
+  "artifacts": [
+    {
+      "file": "backend-junit.xml",
+      "sha256": "239d5395c0a15c19fa1a77f5fff05abd0a06962c33059a6c13bd38c2a1254599"
+    },
+    {
+      "file": "backend-pytest.txt",
+      "sha256": "91f6e0f6c097dfda603405ced9baca41e95a1ca93f36bd3453cf720becb6da22"
+    },
+    {
+      "file": "frontend-build.txt",
+      "sha256": "b3d84079038d0bed8e281ae8e26c358e1a969fc19e333cbc6e1c5c9088aeec2b"
+    },
+    {
+      "file": "frontend-tests.txt",
+      "sha256": "e4aab60f48700bb17365441c46dadfc1c98c3b707aae30d03ac0309afc5d184a"
+    },
+    {
+      "file": "frontend-typecheck.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+# Preserve the bytes of archived evidence so its recorded SHA-256 remains valid.
+docs/evidence/** -text whitespace=cr-at-eol

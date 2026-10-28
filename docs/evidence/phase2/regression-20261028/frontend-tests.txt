@@ -1,0 +1,21 @@
+✔ bank and version retries reuse the same Idempotency-Key after an unknown outcome (61.8405ms)
+✔ a changed draft receives a new key; successful requests clear the pending key (1.275ms)
+✔ API status remains available so a statistics 409 can request refresh (1.064ms)
+✔ permissions hide owner controls and published selection; suppressed values never display as zero (0.204ms)
+✔ 401 clears the matching session and immediately updates the store (45.8416ms)
+✔ an old request cannot clear a newer login (0.8533ms)
+✔ a failed login does not send or clear an existing session token (0.8646ms)
+✔ a temporary network failure does not sign the user out (1.2249ms)
+✔ an old profile response cannot replace the newly logged in user (2.1481ms)
+✔ Beijing input is converted to UTC with valid leap days (83.9824ms)
+✔ invalid calendar dates are rejected instead of silently normalized (0.6922ms)
+48 frontend answer, whitespace, type and jump assertions passed
+✔ C:\Users\24222\Desktop\数据库\survey-system\frontend\tests\surveyAnswers.test.mjs (1498.5851ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3294.3207

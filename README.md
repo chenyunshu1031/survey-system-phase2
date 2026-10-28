@@ -16,7 +16,7 @@
 - 按用户名分享题目、撤销分享，在草稿问卷中选入指定版本并查看使用关系。
 - 问卷实例保存内容快照；逻辑题目所有者可自动查看所有有效来源问卷的聚合统计。版本单独展示，内容完全相同的版本可合并展示；数字题显示均值与区间分布，文本仅显示达到五名不同填写者门槛的重复答案，小样本结果会抑制。
 
-“所有问卷”只包括实际选入同一可复用题目版本且来源快照有效的问卷。第一阶段旧题目不会凭题干相同自动归并；显式保存旧题也不追溯改写旧答卷。旧版按问卷所有者授权统计的接口仍保留供旧客户端使用，当前页面使用自动汇总接口。
+“所有问卷”只包括实际选入同一可复用题目版本且来源快照有效的问卷。第一阶段旧题目不会凭题干相同自动归并；显式保存旧题也不追溯改写旧答卷。阶段二早期实现的按问卷授权统计接口仍保留供相应客户端使用，当前页面使用自动汇总接口；该授权接口并非第一阶段原有功能。
 
 填写者必须登录。匿名提交在统计中隐藏账号，数据库保留身份用于执行重复填写限制。未提交答案仅保存在当前页面，刷新后清空。
 
@@ -35,19 +35,7 @@
 
 ## 本地运行
 
-### 本机一键启动
-
-2026-10-27已将第二阶段切换到原业务库`127.0.0.1:27017/survey_system`，数据目录为`backend/.local-mongo-data`。在项目目录执行：
-
-**当前状态：**题库改名／归档、旧问卷题目保存和自动跨问卷汇总代码已接入原业务库服务。更新前正常关库制作并逐文件校验离线备份；重启后旧四集合的数量、ID和内容哈希一致，当前校验器、索引及新增API路由已核对。新增业务流程在隔离MongoDB与浏览器验证，本轮未向原业务库写入测试答卷。记录见[本轮更新记录](docs/phase2-auto-scope-upgrade.md)。
-
-```powershell
-.\start-local.ps1
-```
-
-脚本会核对MongoDB的数据目录，启动单进程后端和前端，并在服务已由该脚本启动时复用原进程。访问`http://127.0.0.1:5173/`，使用原账号登录。日志和进程记录位于`tmp/local-runtime/`；前端来源配置应为`http://127.0.0.1:5173`。本脚本使用本机Python3.13及已安装的`backend/.deps`，其他电脑请按下文安装依赖。
-
-本次切换保留原四集合的7／8／24／11条记录，新增六个题库及授权集合；临时验收数据已清理。备份、验证和回退说明见[第二阶段本机切换记录](docs/phase2-cutover.md)。以下为手工安装和运行方法。
+新电脑首次运行可以使用空MongoDB，按下方“后端”“前端”步骤安装依赖、配置并启动。后端初始化会创建集合校验器和索引，不需要取得本机的物理数据目录或恢复历史备份。恢复第一阶段备份只用于复现历史数据兼容检查。
 
 环境要求：Python 3.12+、Node.js 20.19+ 或 22.12+、MongoDB 7/8。先启动 MongoDB，默认连接 `mongodb://127.0.0.1:27017`。前后端分别在两个终端运行。
 
@@ -97,7 +85,7 @@ npm run dev -- --port 5173 --strictPort
 npm run dev -- --port 5174 --strictPort
 ```
 
-对应访问 `http://localhost:5174/surveys`，并将后端 `FRONTEND_ORIGIN` 设为 `http://localhost:5174` 后重启后端。验收截图使用的是 5174 端口。
+对应访问 `http://localhost:5174/surveys`，并将后端 `FRONTEND_ORIGIN` 设为 `http://localhost:5174` 后重启后端。历史截图使用不同隔离端口，以各次执行记录标注为准。
 
 ### 3. 运行约束
 
@@ -105,52 +93,65 @@ npm run dev -- --port 5174 --strictPort
 
 发布后锁定题目、跳转规则、匿名和重复设置，标题、说明及截止时间仍可调整。时间按 UTC 存储，页面统一使用北京时间。
 
-## 测试
+### 4. 本机原库启动（可选）
 
-后端在 `backend` 目录执行：
+`start-local.ps1`用于本机已有环境，要求原`backend/.local-mongo-data`目录、`backend/.env`、`backend/.deps`和前端依赖存在。它检查27017数据目录并启动或复用8000、5173服务，不是新电脑首次安装脚本。运行中的后端若仍为旧代码，应在核对进程归属后重启，不以网页能打开代替版本验证。
 
 ```powershell
+.\start-local.ps1
+```
+
+首次结构切换及随后更新的历史结果见[部署与兼容记录](docs/evidence/phase2/deployment/auto-scope-upgrade.md)。备份和物理数据目录保留在本地，不随代码发布。
+
+## 测试
+
+后端在已安装依赖的虚拟环境中运行：
+
+```powershell
+cd backend
 python -m pip install -r requirements-dev.txt
 python -m pytest -q
 ```
 
-常规接口测试使用 mongomock。真实 MongoDB 测试默认跳过，启用前先确认测试实例可连接：
+普通命令使用模拟库，5项真实MongoDB集成测试默认跳过。复现完整回归时，先启动独立MongoDB8.3.11实例（本组真实库测试有版本断言），再设置：
 
 ```powershell
 $env:RUN_MONGO_INTEGRATION = '1'
-$env:MONGO_TEST_URI = 'mongodb://127.0.0.1:27018'
+$env:MONGO_TEST_URI = 'mongodb://127.0.0.1:29149'
+$env:RUN_LIBRARY_MONGO_INTEGRATION = '1'
+$env:LIBRARY_MONGO_TEST_URI = 'mongodb://127.0.0.1:29149'
+$env:MONGODB_URI = 'mongodb://127.0.0.1:29149'
+$env:MONGODB_DB = 'phase2_final_evidence'
+$env:FRONTEND_ORIGIN = 'http://localhost:5173'
 python -m pytest -q
 ```
 
-端口按实际实例调整；测试仅操作随机命名的 `survey_system_test_*` 数据库，结束后清理。
+不要将上述测试地址替换为原业务库。真实库用例创建随机命名的测试库，结束后清理。独立空库启动方法、实际执行命令及退出码见[完整回归原始记录](docs/evidence/phase2/regression-20261028/README.md)。
 
-前端在 `frontend` 目录执行：
+前端在frontend目录执行：
 
 ```powershell
 npm test
 npm run build
 ```
 
-2026-10-21 的完整后端测试为 64 passed、0 skipped，其中 3 项使用真实 MongoDB；前端 8 个测试项通过，TypeScript 检查与 Vite 构建成功。浏览器手工验收 H01—H08 通过，包含 13 张代表截图。本机独立环境已完成依赖安装及启动、发布、提交、统计流程验证。
+最新完整回归：后端109通过、0失败、0跳过，其中5项使用真实MongoDB，其余104项为模拟库及其他测试；前端12通过，类型检查和生产构建成功。浏览器验收区分本人手工操作与AI辅助执行，步骤、输入输出及截图见下列文档。历史批次与当前结果分别记录，不重复相加。
 
-2026-10-27切换前重新执行后端完整测试：101通过、0失败、0跳过，真实数据库测试使用独立29143实例；前端12项通过，类型检查和生产构建通过。切换后另在原库执行101次真实HTTP请求，核对8份旧问卷和24道旧题的读取与统计，并验证新增功能；随后按本轮临时ID清理验收数据，原四集合ID与完整内容哈希均未改变。该HTTP检查与自动测试是两份独立证据。
+## 第二阶段提交文档
 
-## 文档
-
-| 文档 | 内容 |
+| 材料 | 内容 |
 | --- | --- |
-| [系统与数据库设计](docs/design.md) | 集合划分、索引、跳转、校验、状态及统计逻辑 |
-| [API 说明](docs/api.md) | 路径、请求字段、返回示例及错误状态 |
-| [测试用例与结果](docs/test-cases.md) | 自动测试及手工验收的步骤、输入、输出和结果 |
-| [手工验收截图](docs/manual-screenshots-20261021.md) | 13 张截图及用例对应关系 |
-| [第一阶段AI使用日志](docs/ai-collaboration.md) | 25项开发记录、任务指令、生成代码、修改及验证结果 |
-| [第二阶段测试用例与结果](docs/phase2-test-cases.md) | 新需求、原功能回归、旧数据兼容及完整页面填写测试 |
-| [第二阶段AI使用日志](docs/phase2-ai-collaboration.md) | 19项协作记录，包含需求选择、Prompt、代码产出和验收推动的修改 |
-| [第二阶段本人手工测试截图](docs/images/phase2-manual/README.md) | 题库、版本、发布、使用追踪和撤销分享等13张截图 |
+| [系统与数据库设计](docs/phase2-design.md) | 扩展架构、集合与引用、嵌入和快照、权限、版本、跳转、校验、统计及兼容 |
+| [API说明](docs/api.md) | 第一阶段保留接口及第二阶段新增接口、字段、错误状态 |
+| [测试用例与结果](docs/phase2-test-cases.md) | P2-01—P2-21的步骤、输入、预期、实际输出、结果和证据 |
+| [浏览器截图图集](docs/phase2-browser-screenshots.md) | 25张代表截图及执行方式、用例对应关系 |
+| [完整回归原始输出](docs/evidence/phase2/regression-20261028/README.md) | 代码提交号、命令、环境、退出码、pytest与前端输出 |
+| [AI使用日志与说明](docs/phase2-ai-collaboration.md) | 19项Prompt与产出、修改记录，以及AI帮助、AI问题、本人修改和本人设计 |
+| [MongoDB schema](backend/app/db/schema.py) | 集合校验器和索引定义 |
+| [配置示例](backend/.env.example) | 无真实密钥的环境变量模板 |
 
-## 第一阶段交付
+### 第一阶段基线与回归依据
 
-- [交付文件与实验要求逐项对照](docs/submission.md)
-- GitHub 仓库：[chenyunshu1031/survey-system-phase1](https://github.com/chenyunshu1031/survey-system-phase1)（私有）
+保留[原系统设计](docs/design.md)、[T01—T22测试用例](docs/test-cases.md)、[第一阶段截图](docs/manual-screenshots-20261021.md)与[第一阶段AI日志](docs/ai-collaboration.md)，供核对扩展前结构与旧功能回归。第一阶段仓库：[survey-system-phase1](https://github.com/chenyunshu1031/survey-system-phase1)（公开）。
 
-提交目录包含代码、MongoDB schema、配置示例、正式说明、测试用例、验收截图和 AI 使用日志。Word 报告单独提交，不上传仓库。本地数据库、实际 `.env`、依赖目录、日志、旧报告及生成预览不纳入仓库。
+Word项目报告单独提交，不放入仓库。本地数据库、物理备份、.env、依赖目录、缓存、构建产物、报告预览和临时核对文件也不提交。docs/evidence中的执行摘要、日志与截图用于复核测试结果，不包含原业务数据库或备份。

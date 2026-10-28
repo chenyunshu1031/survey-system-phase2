@@ -153,5 +153,3 @@ npm run build
 ### 第一阶段基线与回归依据
 
 保留[原系统设计](docs/design.md)、[T01—T22测试用例](docs/test-cases.md)、[第一阶段截图](docs/manual-screenshots-20261021.md)与[第一阶段AI日志](docs/ai-collaboration.md)，供核对扩展前结构与旧功能回归。第一阶段仓库：[survey-system-phase1](https://github.com/chenyunshu1031/survey-system-phase1)（公开）。
-
-Word项目报告单独提交，不放入仓库。本地数据库、物理备份、.env、依赖目录、缓存、构建产物、报告预览和临时核对文件也不提交。docs/evidence中的执行摘要、日志与截图用于复核测试结果，不包含原业务数据库或备份。

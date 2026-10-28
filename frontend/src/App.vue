@@ -30,6 +30,7 @@ function signOut() {
       <nav class="header-actions" aria-label="主导航">
         <template v-if="signedIn">
           <RouterLink to="/surveys">我的问卷</RouterLink>
+          <RouterLink to="/library">个人题库</RouterLink>
           <span class="header-user">{{ auth.username }}</span>
           <button class="text-button" type="button" @click="signOut">退出</button>
         </template>

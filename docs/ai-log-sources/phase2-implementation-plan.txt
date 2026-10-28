@@ -1,0 +1,50 @@
+以下是实施计划，不是已完成的改动。本轮不修改文件、不启动项目、不运行测试或数据库。计划以第一阶段代码包、[备份清单.md](C:/Users/24222/Desktop/数据库/output/phase2-baseline-20261024_223045/备份清单.md)及两份作业文档为依据；阶段二文档未规定的口径均标为设计决定。每一步交付一个可单独验收的增量，验收通过后再进入下一步。
+1. 数据库结构与兼容
+**工作单元：**增加题库、版本、分享所需集合及索引，并使新代码能读取第一阶段文档；暂不转换或重写旧记录。
+- 现有文件：[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)、[models.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/models.py)、[surveys.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/surveys.py)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\backend\app\db\compat.py、C:\Users\24222\Desktop\数据库\survey-system\backend\tests\test_phase2_schema_compat.py。
+- **API、输入输出：**无新增公开 API。输入为既有 schemaVersion: 1 文档及缺少新增字段的文档；输出是可读取的旧模型和新增集合校验器、索引。旧 API 的请求与响应保持可用。
+- **权限检查：**本步不增加数据入口；集合结构不替代后续的所有人和分享权限检查。
+- **验收：**在隔离副本核对备份所记四集合数量 7/8/24/11、全部旧题目及答卷 _id、surveyId、answers[].questionId 和 visitedQuestionIds 均不变；旧文档通过读取，新增结构不要求旧文档补字段。依据：[备份清单.md](C:/Users/24222/Desktop/数据库/output/phase2-baseline-20261024_223045/备份清单.md)、[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)。
+2. 题库及版本后端
+**工作单元：**让用户创建个人题库、保存可复用题目、生成不可变版本、查看历史，并通过“恢复”生成新版本。
+- 现有文件：[models.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/models.py)、[main.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/main.py)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\backend\app\routers\library.py、C:\Users\24222\Desktop\数据库\survey-system\backend\app\services\library.py、C:\Users\24222\Desktop\数据库\survey-system\backend\tests\test_library_versions.py。
+- **API、输入输出：**拟设 POST/GET /api/v1/question-banks、题库条目的添加与移除接口；POST/GET /api/v1/library/questions、GET /library/questions/{id}/versions、POST /library/questions/{id}/versions、POST /library/questions/{id}/versions/{versionId}/restore。输入为题库名称或题目内容；输出为逻辑题目 ID、版本 ID、版本号、来源版本 ID 与历史列表。版本内容不含问卷内的 order、surveyId 或跳转目标。
+- **权限检查：**创建、更新、入库和恢复仅限题目或题库所有人；他人的未分享题目不可读取。
+- **验收：**旧版和新版同时可读；恢复产生新的版本 ID，旧版本内容与来源链不被覆盖。设计决定：“恢复”采用新增版本，不原位回滚；允许多个具名题库。依据：[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)。
+3. 分享与使用追踪
+**工作单元：**按用户分享题目版本，并把选中的版本作为内容快照加入草稿问卷；提供“被哪些问卷使用”的查询。
+- 现有文件：[questions.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/questions.py)、[surveys.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/surveys.py)、[question_view 所在文件](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/surveys.py)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\backend\app\services\question_sharing.py、C:\Users\24222\Desktop\数据库\survey-system\backend\tests\test_question_sharing_usage.py。
+- **API、输入输出：**拟设 POST/GET/DELETE /api/v1/library/questions/{id}/shares，以接收用户 ID 为输入、授权状态为输出；POST /api/v1/surveys/{surveyId}/questions/from-library，以 versionId 为输入、带新实例 ID 和来源 ID 的问卷题目为输出；GET /api/v1/library/questions/{id}/usages 返回使用它的问卷及所用版本。
+- **权限检查：**只有题目所有人可授权或撤销；被授权用户只能选用获准版本；只有草稿问卷所有人可加入题目。使用情况的跨用户可见字段须经过权限过滤。
+- **验收：**每次选用产生新的问卷题目 _id，不改动库中版本或其他问卷。已发布问卷内容固定。草稿实例若直接修改题型、标题、选项、必答或校验内容，清除其来源版本关联；仅修改问卷专属的顺序或跳转规则不改变来源内容身份。**设计决定：**撤销分享只阻止未来选用，已加入的草稿和已发布问卷继续使用自身快照，历史使用记录保留。依据：[questions.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/questions.py)、[jumps.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/jumps.py)、[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)。
+4. 跨问卷统计
+**工作单元：**按一个明确的版本汇总其在多份问卷实例中的答卷，不改变第一阶段统计接口。
+- 现有文件：[statistics.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/statistics.py)、[statistics.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/statistics.py)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\backend\app\services\library_statistics.py、C:\Users\24222\Desktop\数据库\survey-system\backend\tests\test_library_statistics.py。
+- **API、输入输出：**拟设 GET /api/v1/library/questions/{id}/versions/{versionId}/statistics。输入为逻辑题目及版本 ID；输出为参与问卷数、答卷数、到达数、回答数，以及适用题型的选项汇总或数字汇总。不返回 entries、原始文本／数字答案、用户名、填写者 ID 或答卷 ID。
+- **权限检查：**验证题目和版本关系，并按确定的跨问卷可见范围授权；现有问卷所有人仍通过原统计 API 查看自己问卷的结果。
+- **验收：**汇总只纳入来源版本匹配的实例；被跳过与到达但留空仍分别计数；第一阶段两类统计结果不变。**设计决定：**默认只汇总同一版本，不自动合并不同版本；跨用户汇总仅提供聚合值，小样本的选项分布和数字平均值采用抑制阈值，阈值及谁可查看跨用户汇总须在实施前确定。依据：[statistics.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/statistics.py)、[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)。
+5. 前端入口
+**工作单元：**提供题库、版本、分享、选题、使用情况和跨问卷汇总的页面入口，沿用现有登录与问卷编辑流程。
+- 现有文件：[router.ts](C:/Users/24222/Desktop/数据库/survey-system/frontend/src/router.ts)、[types.ts](C:/Users/24222/Desktop/数据库/survey-system/frontend/src/api/types.ts)、[SurveyEditorPage.vue](C:/Users/24222/Desktop/数据库/survey-system/frontend/src/pages/SurveyEditorPage.vue)、[SurveysPage.vue](C:/Users/24222/Desktop/数据库/survey-system/frontend/src/pages/SurveysPage.vue)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\frontend\src\pages\QuestionLibraryPage.vue、C:\Users\24222\Desktop\数据库\survey-system\frontend\src\pages\LibraryQuestionPage.vue、C:\Users\24222\Desktop\数据库\survey-system\frontend\src\components\LibraryQuestionPicker.vue。
+- **API、输入输出：**调用第 2—4 步接口；用户输入题目内容、分享对象、选用版本，页面显示历史链、使用问卷及聚合结果，并显示新建的问卷题目实例。
+- **权限检查：**页面按服务端返回的权限显示可用操作；后端仍独立判权。已发布问卷不显示可修改题目的操作。
+- **验收：**能完成“入库→新版本→分享→选入草稿→查看使用与统计”；旧登录、编辑、填写、结果页面仍可走通。草稿实例脱离来源时页面明确提示；撤销分享后已有问卷仍能显示原题。依据：[router.ts](C:/Users/24222/Desktop/数据库/survey-system/frontend/src/router.ts)、[api.md](C:/Users/24222/Desktop/数据库/survey-system/docs/api.md)。
+6. 回归测试
+**工作单元：**执行完整旧功能回归及新增功能验证，并留下可复核的结果；本轮仅列计划，不执行。
+- 现有文件：[backend/tests](C:/Users/24222/Desktop/数据库/survey-system/backend/tests)、[frontend/tests](C:/Users/24222/Desktop/数据库/survey-system/frontend/tests)、[test-cases.md](C:/Users/24222/Desktop/数据库/survey-system/docs/test-cases.md)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\backend\tests\test_phase2_regression.py、C:\Users\24222\Desktop\数据库\survey-system\frontend\tests\questionLibrary.test.ts。
+- **API、输入输出：**无新增 API。输入包括原测试夹具及隔离恢复的第一阶段备份；输出为逐项测试结果、前后数据核对结果和失败记录。
+- **权限检查：**覆盖越权读写、分享撤销、跨用户统计及匿名信息不泄露。
+- **验收：**第一阶段接口和原测试全部通过；旧题目／答卷 ID 与关联不变；已发布内容不变；新版本、脱离来源、撤销分享及统计边界均有断言。记录实际通过、失败、跳过数量，不能把第一阶段文档中的 64 项结果当作本次结果。依据：[test-cases.md](C:/Users/24222/Desktop/数据库/survey-system/docs/test-cases.md)、[备份清单.md](C:/Users/24222/Desktop/数据库/output/phase2-baseline-20261024_223045/备份清单.md)。
+7. 文档报告
+**工作单元：**在验证结果确定后，完成阶段二设计、接口、兼容与测试记录，以及课程报告。
+- 现有文件：[README.md](C:/Users/24222/Desktop/数据库/survey-system/README.md)、[design.md](C:/Users/24222/Desktop/数据库/survey-system/docs/design.md)、[api.md](C:/Users/24222/Desktop/数据库/survey-system/docs/api.md)、[ai-collaboration.md](C:/Users/24222/Desktop/数据库/survey-system/docs/ai-collaboration.md)、[第一阶段项目完成报告.docx](C:/Users/24222/Desktop/数据库/survey-system/reports/第一阶段项目完成报告.docx)。
+- 拟新增：C:\Users\24222\Desktop\数据库\survey-system\docs\phase2-compatibility.md、C:\Users\24222\Desktop\数据库\survey-system\docs\phase2-test-cases.md；阶段二报告单独成文，保留第一阶段报告原件。
+- **API、输入输出：**无新增 API。输入为实际代码差异、数据核对及测试结果；输出为更新后的集合与接口说明、设计决定记录、兼容和恢复说明、测试证据及报告。
+- **权限检查：**文档示例不包含真实密钥、个人原始答案或可识别填写者的数据。
+- 验收：逐项说明第一阶段设计、需求变化、数据结构和程序改动、旧数据兼容、旧功能回归及真实 AI 使用过程；将上文各项设计决定与作业原文要求明确区分。依据：[大作业一.docx](C:/Users/24222/Desktop/数据库/大作业一.docx)、[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)。

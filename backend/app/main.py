@@ -8,7 +8,7 @@ from pymongo.errors import DocumentTooLarge, OperationFailure
 from app.config import get_settings
 from app.db import get_db
 from app.db.schema import initialize_database
-from app.routers import auth, questions, responses, statistics, surveys
+from app.routers import auth, library, library_statistics, questions, responses, statistics, surveys
 
 
 def create_app(initialize_schema: bool = True) -> FastAPI:
@@ -38,12 +38,17 @@ def create_app(initialize_schema: bool = True) -> FastAPI:
         allow_origins=[get_settings().frontend_origin],
         allow_credentials=False,
         allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
-        allow_headers=["Authorization", "Content-Type"],
+        allow_headers=["Authorization", "Content-Type", "Idempotency-Key"],
     )
     app.include_router(auth.router)
     app.include_router(surveys.router)
     app.include_router(surveys.public_router)
     app.include_router(questions.router)
+    app.include_router(library.banks_router)
+    app.include_router(library.questions_router)
+    app.include_router(library.shared_router)
+    app.include_router(library_statistics.survey_router)
+    app.include_router(library_statistics.library_router)
     app.include_router(responses.router)
     app.include_router(statistics.router)
     return app

@@ -94,3 +94,22 @@
 | 422 | 字段、规则或答案不合法 |
 
 前端显示接口错误提示，是否接受请求由后端校验决定。
+
+## 八、第二阶段新增接口
+
+以下路径省略`/api/v1`前缀，均要求登录。创建题库、逻辑题目、版本、恢复和旧题保存使用`Idempotency-Key`；同一键和同一内容重试返回已有结果，键与内容不匹配返回409。
+
+| 类别 | 方法与路径 | 说明 |
+| --- | --- | --- |
+| 题库 | `POST/GET /question-banks`；`PATCH/DELETE /question-banks/{id}` | 创建、列出、改名、归档个人题库；归档不删除题目和版本 |
+| 题库条目 | `GET/POST /question-banks/{id}/items`；`PUT /question-banks/{id}/items/{qid}/version`；`DELETE /question-banks/{id}/items/{qid}` | 加入题目、固定或显式切换版本、移除条目 |
+| 可复用题目 | `POST/GET /library/questions`；`GET /library/questions/{qid}` | 创建、列出、读取逻辑题目 |
+| 历史版本 | `GET/POST /library/questions/{qid}/versions`；`POST /library/questions/{qid}/versions/{vid}/restore` | 查看历史、基于指定版本创建新版、将旧内容复制为新版本 |
+| 分享与追踪 | `POST/GET /library/questions/{qid}/shares`；`DELETE /library/questions/{qid}/shares/{recipientId}`；`GET /library/shared/questions`；`GET /library/questions/{qid}/usages` | 按用户名分享、撤销、查看获分享题目与最小使用关系 |
+| 选题与旧题保存 | `POST /surveys/{id}/questions/from-library`；`POST /surveys/{id}/questions/{qid}/save-to-library` | 草稿选入指定版本；将本人旧问卷题目显式保存供今后复用 |
+| 草稿题目删除 | `DELETE /surveys/{id}/questions/{questionId}` | 仅问卷所有者可删除草稿实例，成功返回204；其他题的跳转规则指向此题时返回409，须先调整规则。保留题库原题、历史版本及其他实例的ID和顺序 |
+| 自动统计 | `GET /library/questions/{qid}/versions/{vid}/all-survey-statistics`；`GET /library/questions/{qid}/all-survey-statistics` | 作者查看所有有效来源问卷的单版聚合及同内容版本分组总览 |
+
+自动统计不要求问卷所有者另行授权，但只向逻辑题目作者提供聚合结果。单版结果按每份答卷去重，数字题按答卷等权并给区间分布；文本只显示至少5名不同填写者给出的相同答案。任一非零答卷层面指标或数字区间少于5名不同填写者时，相关答卷层面字段返回`null`并标记`suppression.applied=true`。总览仅合并题型、题干、必答、选项及其ID、校验配置完全一致的版本。第一阶段旧题没有来源关系，不自动纳入。
+
+为兼容先前客户端，`GET/PUT/DELETE /surveys/{id}/cross-survey-statistics/{qid}/consent`及`GET /library/questions/{qid}/versions/{vid}/cross-survey-statistics`仍可调用。旧路径按问卷所有者授权范围计算，与当前页面使用的自动统计路径口径不同。

@@ -62,6 +62,8 @@ export interface Question {
   validation: QuestionValidation
   jumpRules: JumpRule[]
   jumpRuleWarnings?: string[]
+  sourceLibraryQuestionId?: string
+  sourceVersionId?: string
 }
 
 export interface QuestionInput {
@@ -91,4 +93,71 @@ export interface SurveyStatistics {
   asOf: string
   submissionRevision: number
   questions: QuestionStatistics[]
+}
+
+export interface LibraryVersion {
+  id: string
+  libraryQuestionId: string
+  versionNo: number
+  parentVersionId: string | null
+  createdById: string
+  type: QuestionType
+  title: string
+  required: boolean
+  options: { id: string; label: string }[]
+  validation: QuestionValidation
+  createdAt: string
+}
+
+export interface LibraryQuestion {
+  id: string
+  ownerId: string
+  currentVersionId: string
+  currentVersion: LibraryVersion
+  createdAt: string
+  updatedAt: string
+}
+
+export interface QuestionBank { id: string; name: string; createdAt: string; updatedAt: string }
+
+export interface BankItem {
+  id: string
+  bankId: string
+  libraryQuestionId: string
+  selectedVersionId: string
+  selectedVersion: LibraryVersion
+  createdAt: string
+  updatedAt: string
+}
+
+export interface QuestionShare { recipientUserId: string; recipientUsername: string | null; createdAt: string }
+
+export interface QuestionUsage {
+  surveyId: string
+  questionId: string
+  versionId: string
+  status: Survey['status']
+  isOwnSurvey: boolean
+}
+
+export interface CrossSurveyStatistics {
+  scope: 'owned_surveys_and_explicit_consent' | 'all_surveys'
+  participatingSurveyCount: number
+  suppression: { applied: boolean; minimumDistinctRespondents: number }
+  responseCount: number | null
+  reachedCount: number | null
+  answeredCount: number | null
+  optionCounts?: { optionId: string; count: number }[] | null
+  textAnswerCounts?: { value: string; count: number }[] | null
+  average?: number | null
+  numericDistribution?: {
+    lowerBound: number
+    upperBound: number
+    upperInclusive: boolean
+    count: number
+  }[] | null
+}
+
+export interface CrossSurveyOverview {
+  groups: { versionIds: string[]; versionNumbers: number[]; statistics: CrossSurveyStatistics }[]
 }

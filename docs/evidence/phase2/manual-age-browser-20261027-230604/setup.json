@@ -1,0 +1,28 @@
+{
+  "database": "127.0.0.1:29141/unit6_browser",
+  "frontend": "http://127.0.0.1:15173",
+  "surveys": [
+    {
+      "title": "手验年龄A",
+      "id": "6ae0bbb84f51186cb3382104",
+      "slug": "A_8QjMrlnG35",
+      "questionId": "6ae0bbc74f51186cb3382105",
+      "logicalId": "6ae0bb614f51186cb3382102",
+      "versionId": "6ae0bb614f51186cb3382103",
+      "value": 22,
+      "existingRespondents": [],
+      "legacyConsentCount": 0
+    },
+    {
+      "title": "手验年龄B",
+      "id": "6ae0bc494f51186cb3382107",
+      "slug": "yYaSXUs0btIL",
+      "questionId": "6ae0bc5a4f51186cb3382108",
+      "logicalId": "6ae0bb614f51186cb3382102",
+      "versionId": "6ae0bb614f51186cb3382103",
+      "value": 42,
+      "existingRespondents": [],
+      "legacyConsentCount": 0
+    }
+  ]
+}

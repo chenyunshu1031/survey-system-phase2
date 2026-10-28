@@ -1,0 +1,33 @@
+一阶段基线盘点
+以下结论来自静态阅读文件。作业文档说明的是要求，README 和设计文档记录的是项目说明，代码反映当前实现；文档记载的历史测试结果不等于本次验证结果。本次没有修改文件、启动系统、运行测试或连接数据库。
+1. 已有功能、集合和主要接口
+第一阶段代码包含注册登录、本人问卷管理、四种题型及校验、条件跳转、登录后按链接填写、答卷提交，以及整份和单题统计。前端有登录、问卷列表、编辑、填写和结果页面。当前题目属于具体问卷；现有路由没有题目库、题目版本历史或跨问卷单题统计接口，这些是《需求变更》提出的后续要求，不能记作现状。依据：[大作业一.docx](C:/Users/24222/Desktop/数据库/大作业一.docx)、[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)、[README.md](C:/Users/24222/Desktop/数据库/survey-system/README.md)、[main.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/main.py)、[router.ts](C:/Users/24222/Desktop/数据库/survey-system/frontend/src/router.ts)。
+MongoDB 集合	当前用途与关键字段
+users	账号、大小写归一的 usernameKey、密码哈希、注册时间。
+surveys	所有人 ownerId、分享用 slug、设置、状态、时间及内部操作版本。
+questions	以 surveyId 归属问卷，保存 order、题型、选项、校验和 jumpRules。
+responses	以 surveyId 归属问卷，保存 respondentId、实际答案、访问路径、匿名标志及提交时间。
+
+
+依据：[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)、[design.md](C:/Users/24222/Desktop/数据库/survey-system/docs/design.md)。
+
+主要 API 均以 /api/v1 为前缀：/auth/register|login|me；/surveys 及其详情、设置、发布、关闭；/surveys/{surveyId}/questions 及题目更新、jump-rules；/public/surveys/{slug} 及其 /responses；/surveys/{surveyId}/statistics 及 /statistics/questions/{questionId}。除注册、登录外，路由要求登录；管理和统计接口按问卷所有人检查权限。依据：[api.md](C:/Users/24222/Desktop/数据库/survey-system/docs/api.md)、[surveys.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/surveys.py)、[questions.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/questions.py)、[responses.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/responses.py)、[statistics.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/statistics.py)。
+2. 题目、规则、答案和统计的 ID 关联
+- surveys._id 是问卷标识；questions.surveyId 和 responses.surveyId 引用它。questions 是独立集合，题目按同一问卷内的 order 排列，(surveyId, order) 有唯一索引。依据：[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)、[questions.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/questions.py)。
+- 题目以 questions._id 标识。每道选择题的选项另有字符串 id；同题已有选项在编辑时可保留 ID。规则保存在来源题目的 jumpRules 中，含自身 id、priority、目标 targetQuestionId，选择题条件用 optionIds 引用该题选项。目标须是同一问卷中顺序更靠后的题目。依据：[questions.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/questions.py)、[jumps.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/jumps.py)、[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)。
+- 提交请求逐项携带 questionId 和值：单选值是选项 ID，多选值是选项 ID 数组，文本和数字存其值。服务端从首题按优先级规则重算路径；持久化的 answers 只包含实际回答，visitedQuestionIds 则包含所有到达的题目，包括选答留空题。依据：[api.md](C:/Users/24222/Desktop/数据库/survey-system/docs/api.md)、[responses.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/responses.py)、[responses.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/responses.py)。
+- 统计按 surveyId 读取答卷，以 visitedQuestionIds 计算到达数、以 answers[].questionId 计算回答数；选择题再用答案中的选项 ID 对照题目选项计数。文本、数字原始内容来自答卷，数字平均值基于有效数字答案实时计算；没有单独的统计汇总集合。依据：[statistics.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/statistics.py)、[design.md](C:/Users/24222/Desktop/数据库/survey-system/docs/design.md)。
+3. 第二阶段需保留的旧功能与旧数据约束
+《大作业一》要求在第一阶段代码上扩展、保留旧数据和主要功能，除非变更明确要求改变。就当前实现而言，需要以原有账号与所有人权限、问卷创建和分享、四种题型及校验、跳转填写、匿名与重复填写、发布与关闭、整份与单题统计作为旧功能基线。依据：[大作业一.docx](C:/Users/24222/Desktop/数据库/大作业一.docx)、[README.md](C:/Users/24222/Desktop/数据库/survey-system/README.md)、[submission.md](C:/Users/24222/Desktop/数据库/survey-system/docs/submission.md)。
+
+旧数据的关键解释关系是：现有 surveyId 归属、题目 _id 与选项 id 引用、规则目标与条件引用，以及答卷的 answers 和 visitedQuestionIds。已发布问卷的题目及规则当前禁止修改；否则历史答案可能无法按原题和原选项解释。匿名答卷仍存 respondentId 以约束重复填写，但统计展示隐藏身份。禁止重复填写时，responses 的部分唯一索引约束同一问卷、同一填写者。依据：[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)、[questions.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/questions.py)、[responses.py 路由](C:/Users/24222/Desktop/数据库/survey-system/backend/app/routers/responses.py)、[statistics.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/statistics.py)、[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)。
+
+当前写入文档使用 schemaVersion: 1；旧问卷缺少 configurationRevision 或 submissionRevision 时，代码按 0 读取。这里应保留的是旧记录可被正确读取和解释，不能据此推断第二阶段的物理 schema 必须保持原样。依据：[design.md](C:/Users/24222/Desktop/数据库/survey-system/docs/design.md)、[surveys.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/surveys.py)、[statistics.py 服务](C:/Users/24222/Desktop/数据库/survey-system/backend/app/services/statistics.py)。
+4. 需要手动备份和记录的清单
+- **项目基线：**保存 survey-system 源码、backend/tests、frontend/tests、docs、依赖清单及锁文件，并记录当时的 Git 分支、提交号、未提交与未跟踪改动。另行保存被 Git 忽略的实际配置 backend/.env 和单独提交的 reports/第一阶段项目完成报告.docx；配置中的密钥应安全保管。项目中还存在 backend/.local-mongo-data，但文件本身不能证明它就是当前业务库。依据：[.gitignore](C:/Users/24222/Desktop/数据库/survey-system/.gitignore)、[submission.md](C:/Users/24222/Desktop/数据库/survey-system/docs/submission.md)、[README.md](C:/Users/24222/Desktop/数据库/survey-system/README.md)。
+- **数据库基线：**手动确认并记录实际连接地址、库名和 MongoDB 版本；备份 users、surveys、questions、responses 的完整旧记录，同时记录集合校验器、索引定义、各集合数量及备份时间。备份核对时特别保留问卷、题目、选项、规则、答卷之间的原始 ID 和访问路径。代码只给出默认库名 survey_system，不能代替对实际环境的确认。依据：[config.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/config.py)、[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)、[design.md](C:/Users/24222/Desktop/数据库/survey-system/docs/design.md)。
+- **验证基线：**留存第一阶段测试用例、当时的实际输出、环境版本、启动配置、手工验收步骤与截图，并记录今后复核所用的测试库与业务库区别。现有文档记载 2026 年 10 月 21 日后端 64 项通过（含 3 项真实 MongoDB）、前端 8 项通过、H01—H08 手工验收通过；这是已有记录，本次没有复测。依据：[test-cases.md](C:/Users/24222/Desktop/数据库/survey-system/docs/test-cases.md)、[manual-screenshots-20261021.md](C:/Users/24222/Desktop/数据库/survey-system/docs/manual-screenshots-20261021.md)、[README.md](C:/Users/24222/Desktop/数据库/survey-system/README.md)。
+5. 待确认
+- **待确认：**当前实际使用的 MongoDB 实例、库名、数据量、集合校验器与索引是否和代码定义一致，以及 backend/.local-mongo-data 是否属于该实例。本次未连接数据库。依据：[config.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/config.py)、[schema.py](C:/Users/24222/Desktop/数据库/survey-system/backend/app/db/schema.py)。
+- **待确认：**当前工作目录对应的 Git 提交和未提交改动，以及历史测试记录之后是否有代码或环境变化；本次未运行程序或测试。依据：[README.md](C:/Users/24222/Desktop/数据库/survey-system/README.md)、[test-cases.md](C:/Users/24222/Desktop/数据库/survey-system/docs/test-cases.md)。
+- **待确认：**变更文档没有细化题目共享的权限范围、恢复旧版本的具体含义，以及跨问卷统计对不同版本和匿名数据的口径。这些是需求尚未明确之处，不是第一阶段现状。依据：[大作业一：需求变更.docx](C:/Users/24222/Desktop/数据库/大作业一：需求变更.docx)。

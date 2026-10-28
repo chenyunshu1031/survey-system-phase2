@@ -1,0 +1,80 @@
+[
+  {
+    "source": "C:\\Users\\24222\\Pictures\\Screenshots\\屏幕截图 2026-10-27 211359.png",
+    "file": "01-bank-renamed.png",
+    "description": "题库改名成功",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\Pictures\\Screenshots\\屏幕截图 2026-10-27 212011.png",
+    "file": "02-version-created.png",
+    "description": "版本2创建，保留版本1和来源关系",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\Pictures\\Screenshots\\屏幕截图 2026-10-27 212132.png",
+    "file": "03-bank-fixed-v1.png",
+    "description": "题库固定版本1，未自动跟随当前版本",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\Pictures\\Screenshots\\屏幕截图 2026-10-27 212157.png",
+    "file": "04-bank-switched-v2.png",
+    "description": "显式切换后固定版本2",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-4717d4ef-f8e1-4bf5-b9b1-3d29e9920252.png",
+    "file": "05-version-history.png",
+    "description": "版本3、4保留旧内容并记录来源版本1",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-51bb21e7-4d34-46c7-ae2e-86883f3845c2.png",
+    "file": "06-version5-from-v2.png",
+    "description": "基于版本2创建版本5",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-ef68c6ac-8a8a-4407-bae0-87d97a22869d.png",
+    "file": "07-published-keeps-v1.png",
+    "description": "新增版本后已发布问卷保持版本1",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-1275caf1-87d6-4bea-bb23-57ab667e455f.png",
+    "file": "08-draft-keeps-v2.png",
+    "description": "新增版本后草稿保持版本2",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-354f2b36-6143-4105-a120-1e6e71d6965d.png",
+    "file": "09-usage-tracking.png",
+    "description": "查询版本1与版本2的问卷使用关系",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-efea83c8-c19c-43a4-a410-d3441d79c6cb.png",
+    "file": "10-share-revoked.png",
+    "description": "撤销后显示暂无有效分享，使用记录仍在",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-02edb26e-eea6-4b7c-a782-9393cbafb053.png",
+    "file": "11-picker-after-revoke.png",
+    "description": "B的新草稿不再显示被撤销的年龄题",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\AppData\\Local\\Temp\\codex-clipboard-fd52078d-5018-46dd-8339-2640c2178a6f.png",
+    "file": "12-age-a-published.png",
+    "description": "本人配置并发布手验年龄A",
+    "origin": "screenshot supplied by the user during manual testing"
+  },
+  {
+    "source": "C:\\Users\\24222\\Pictures\\Screenshots\\屏幕截图 2026-10-27 225959.png",
+    "file": "13-age-b-published.png",
+    "description": "本人配置并发布手验年龄B",
+    "origin": "screenshot supplied by the user during manual testing"
+  }
+]

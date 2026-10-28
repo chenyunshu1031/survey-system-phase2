@@ -1,0 +1,481 @@
+{
+  "execution": "AI-assisted Edge browser UI via Playwright; not human manual clicking",
+  "frontend": "http://127.0.0.1:15173",
+  "database": "127.0.0.1:29141/unit6_browser",
+  "createdAt": "2026-10-27T15:14:00.612Z",
+  "events": [
+    {
+      "at": "2026-10-27T15:14:06.608Z",
+      "event": "R6 submitted 70 through browser",
+      "responseId": "6ae0bfbe4f51186cb3382113"
+    },
+    {
+      "at": "2026-10-27T15:14:08.959Z",
+      "event": "numeric sparse-bin suppression passed"
+    },
+    {
+      "at": "2026-10-27T15:14:25.132Z",
+      "event": "text survey published through UI",
+      "id": "6ae0bfd04f51186cb3382119",
+      "title": "文本完整流程-1793114061213-V1",
+      "versionNo": 1,
+      "questionId": "6ae0bfd04f51186cb338211a",
+      "selected": true,
+      "slug": "9wMUUJT9imDA"
+    },
+    {
+      "at": "2026-10-27T15:14:25.701Z",
+      "event": "text survey published through UI",
+      "id": "6ae0bfd14f51186cb338211b",
+      "title": "文本完整流程-1793114061213-V3",
+      "versionNo": 3,
+      "questionId": "6ae0bfd14f51186cb338211c",
+      "selected": true,
+      "slug": "-RQuMxiqRJYK"
+    },
+    {
+      "at": "2026-10-27T15:14:28.121Z",
+      "event": "text survey published through UI",
+      "id": "6ae0bfd34f51186cb338211d",
+      "title": "文本完整流程-1793114061213-V2",
+      "versionNo": 2,
+      "questionId": "6ae0bfd34f51186cb338211e",
+      "selected": true,
+      "slug": "1DiD0Dk5P6R1"
+    },
+    {
+      "at": "2026-10-27T15:14:28.133Z",
+      "event": "text setup through UI completed"
+    },
+    {
+      "at": "2026-10-27T15:14:43.793Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r1",
+      "versionNo": 1
+    },
+    {
+      "at": "2026-10-27T15:14:44.047Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r1",
+      "versionNo": 2
+    },
+    {
+      "at": "2026-10-27T15:14:44.292Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r1",
+      "versionNo": 3
+    },
+    {
+      "at": "2026-10-27T15:14:45.973Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r2",
+      "versionNo": 1
+    },
+    {
+      "at": "2026-10-27T15:14:46.158Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r2",
+      "versionNo": 2
+    },
+    {
+      "at": "2026-10-27T15:14:46.342Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r2",
+      "versionNo": 3
+    },
+    {
+      "at": "2026-10-27T15:14:48.382Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r3",
+      "versionNo": 1
+    },
+    {
+      "at": "2026-10-27T15:14:48.550Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r3",
+      "versionNo": 2
+    },
+    {
+      "at": "2026-10-27T15:14:48.722Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r3",
+      "versionNo": 3
+    },
+    {
+      "at": "2026-10-27T15:14:50.091Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r4",
+      "versionNo": 1
+    },
+    {
+      "at": "2026-10-27T15:14:50.253Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r4",
+      "versionNo": 2
+    },
+    {
+      "at": "2026-10-27T15:14:50.415Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r4",
+      "versionNo": 3
+    },
+    {
+      "at": "2026-10-27T15:14:52.086Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r5",
+      "versionNo": 1
+    },
+    {
+      "at": "2026-10-27T15:14:52.253Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r5",
+      "versionNo": 2
+    },
+    {
+      "at": "2026-10-27T15:14:52.414Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r5",
+      "versionNo": 3
+    },
+    {
+      "at": "2026-10-27T15:14:54.222Z",
+      "event": "text answer submitted through UI",
+      "username": "unit6_r6_20261027063337",
+      "versionNo": 2
+    },
+    {
+      "at": "2026-10-27T15:14:55.805Z",
+      "event": "text end-to-end UI flow passed"
+    }
+  ],
+  "numeric": {
+    "before": {
+      "scope": "all_surveys",
+      "participatingSurveyCount": 2,
+      "suppression": {
+        "applied": false,
+        "minimumDistinctRespondents": 5
+      },
+      "responseCount": 10,
+      "reachedCount": 10,
+      "answeredCount": 10,
+      "average": 32,
+      "numericDistribution": [
+        {
+          "lowerBound": 20,
+          "upperBound": 25,
+          "upperInclusive": false,
+          "count": 5
+        },
+        {
+          "lowerBound": 25,
+          "upperBound": 30,
+          "upperInclusive": false,
+          "count": 0
+        },
+        {
+          "lowerBound": 30,
+          "upperBound": 35,
+          "upperInclusive": false,
+          "count": 0
+        },
+        {
+          "lowerBound": 35,
+          "upperBound": 40,
+          "upperInclusive": false,
+          "count": 0
+        },
+        {
+          "lowerBound": 40,
+          "upperBound": 45,
+          "upperInclusive": true,
+          "count": 5
+        }
+      ]
+    },
+    "responseId": "6ae0bfbe4f51186cb3382113",
+    "after": {
+      "scope": "all_surveys",
+      "participatingSurveyCount": 2,
+      "suppression": {
+        "applied": true,
+        "minimumDistinctRespondents": 5
+      },
+      "responseCount": null,
+      "reachedCount": null,
+      "answeredCount": null,
+      "average": null,
+      "numericDistribution": null
+    },
+    "passed": true
+  },
+  "text": {
+    "title": "文本完整流程-1793114061213",
+    "versions": [
+      {
+        "id": "6ae0bfcf4f51186cb3382115",
+        "versionNo": 1,
+        "title": "文本完整流程-1793114061213"
+      },
+      {
+        "id": "6ae0bfcf4f51186cb3382116",
+        "libraryQuestionId": "6ae0bfcf4f51186cb3382114",
+        "versionNo": 2,
+        "parentVersionId": "6ae0bfcf4f51186cb3382115",
+        "createdById": "6adcdb9a81c666e769c77626",
+        "type": "text",
+        "title": "文本完整流程-1793114061213",
+        "required": false,
+        "options": [],
+        "validation": {},
+        "createdAt": "2026-10-27T15:14:23.787627Z"
+      },
+      {
+        "id": "6ae0bfcf4f51186cb3382117",
+        "libraryQuestionId": "6ae0bfcf4f51186cb3382114",
+        "versionNo": 3,
+        "parentVersionId": "6ae0bfcf4f51186cb3382115",
+        "createdById": "6adcdb9a81c666e769c77626",
+        "type": "text",
+        "title": "文本完整流程-1793114061213（改题干）",
+        "required": false,
+        "options": [],
+        "validation": {},
+        "createdAt": "2026-10-27T15:14:23.932475Z"
+      }
+    ],
+    "surveys": [
+      {
+        "id": "6ae0bfd04f51186cb3382119",
+        "title": "文本完整流程-1793114061213-V1",
+        "versionNo": 1,
+        "questionId": "6ae0bfd04f51186cb338211a",
+        "selected": true,
+        "slug": "9wMUUJT9imDA"
+      },
+      {
+        "id": "6ae0bfd14f51186cb338211b",
+        "title": "文本完整流程-1793114061213-V3",
+        "versionNo": 3,
+        "questionId": "6ae0bfd14f51186cb338211c",
+        "selected": true,
+        "slug": "-RQuMxiqRJYK"
+      },
+      {
+        "id": "6ae0bfd34f51186cb338211d",
+        "title": "文本完整流程-1793114061213-V2",
+        "versionNo": 2,
+        "questionId": "6ae0bfd34f51186cb338211e",
+        "selected": true,
+        "slug": "1DiD0Dk5P6R1"
+      }
+    ],
+    "submissions": [
+      {
+        "username": "unit6_r1",
+        "surveyId": "6ae0bfd04f51186cb3382119",
+        "versionNo": 1,
+        "value": "重复答案",
+        "responseId": "6ae0bfe34f51186cb338211f",
+        "submittedAt": "2026-10-27T15:14:43.579Z"
+      },
+      {
+        "username": "unit6_r1",
+        "surveyId": "6ae0bfd34f51186cb338211d",
+        "versionNo": 2,
+        "value": "重复答案",
+        "responseId": "6ae0bfe34f51186cb3382120",
+        "submittedAt": "2026-10-27T15:14:43.987Z"
+      },
+      {
+        "username": "unit6_r1",
+        "surveyId": "6ae0bfd14f51186cb338211b",
+        "versionNo": 3,
+        "value": "其他版本答案",
+        "responseId": "6ae0bfe44f51186cb3382121",
+        "submittedAt": "2026-10-27T15:14:44.226Z"
+      },
+      {
+        "username": "unit6_r2",
+        "surveyId": "6ae0bfd04f51186cb3382119",
+        "versionNo": 1,
+        "value": "重复答案",
+        "responseId": "6ae0bfe54f51186cb3382122",
+        "submittedAt": "2026-10-27T15:14:45.755Z"
+      },
+      {
+        "username": "unit6_r2",
+        "surveyId": "6ae0bfd34f51186cb338211d",
+        "versionNo": 2,
+        "value": "重复答案",
+        "responseId": "6ae0bfe64f51186cb3382123",
+        "submittedAt": "2026-10-27T15:14:46.094Z"
+      },
+      {
+        "username": "unit6_r2",
+        "surveyId": "6ae0bfd14f51186cb338211b",
+        "versionNo": 3,
+        "value": "其他版本答案",
+        "responseId": "6ae0bfe64f51186cb3382124",
+        "submittedAt": "2026-10-27T15:14:46.275Z"
+      },
+      {
+        "username": "unit6_r3",
+        "surveyId": "6ae0bfd04f51186cb3382119",
+        "versionNo": 1,
+        "value": "重复答案",
+        "responseId": "6ae0bfe84f51186cb3382125",
+        "submittedAt": "2026-10-27T15:14:48.162Z"
+      },
+      {
+        "username": "unit6_r3",
+        "surveyId": "6ae0bfd34f51186cb338211d",
+        "versionNo": 2,
+        "value": "重复答案",
+        "responseId": "6ae0bfe84f51186cb3382126",
+        "submittedAt": "2026-10-27T15:14:48.492Z"
+      },
+      {
+        "username": "unit6_r3",
+        "surveyId": "6ae0bfd14f51186cb338211b",
+        "versionNo": 3,
+        "value": "其他版本答案",
+        "responseId": "6ae0bfe84f51186cb3382127",
+        "submittedAt": "2026-10-27T15:14:48.664Z"
+      },
+      {
+        "username": "unit6_r4",
+        "surveyId": "6ae0bfd04f51186cb3382119",
+        "versionNo": 1,
+        "value": "重复答案",
+        "responseId": "6ae0bfe94f51186cb3382128",
+        "submittedAt": "2026-10-27T15:14:49.888Z"
+      },
+      {
+        "username": "unit6_r4",
+        "surveyId": "6ae0bfd34f51186cb338211d",
+        "versionNo": 2,
+        "value": "重复答案",
+        "responseId": "6ae0bfea4f51186cb3382129",
+        "submittedAt": "2026-10-27T15:14:50.208Z"
+      },
+      {
+        "username": "unit6_r4",
+        "surveyId": "6ae0bfd14f51186cb338211b",
+        "versionNo": 3,
+        "value": "其他版本答案",
+        "responseId": "6ae0bfea4f51186cb338212a",
+        "submittedAt": "2026-10-27T15:14:50.359Z"
+      },
+      {
+        "username": "unit6_r5",
+        "surveyId": "6ae0bfd04f51186cb3382119",
+        "versionNo": 1,
+        "value": "重复答案",
+        "responseId": "6ae0bfeb4f51186cb338212b",
+        "submittedAt": "2026-10-27T15:14:51.859Z"
+      },
+      {
+        "username": "unit6_r5",
+        "surveyId": "6ae0bfd34f51186cb338211d",
+        "versionNo": 2,
+        "value": "重复答案",
+        "responseId": "6ae0bfec4f51186cb338212c",
+        "submittedAt": "2026-10-27T15:14:52.209Z"
+      },
+      {
+        "username": "unit6_r5",
+        "surveyId": "6ae0bfd14f51186cb338211b",
+        "versionNo": 3,
+        "value": "其他版本答案",
+        "responseId": "6ae0bfec4f51186cb338212d",
+        "submittedAt": "2026-10-27T15:14:52.358Z"
+      },
+      {
+        "username": "unit6_r6_20261027063337",
+        "surveyId": "6ae0bfd34f51186cb338211d",
+        "versionNo": 2,
+        "value": "只出现一次的私人内容",
+        "responseId": "6ae0bfed4f51186cb338212e",
+        "submittedAt": "2026-10-27T15:14:54.003Z"
+      }
+    ],
+    "logicalId": "6ae0bfcf4f51186cb3382114",
+    "shared": true,
+    "setupPassed": true,
+    "overview": {
+      "groups": [
+        {
+          "versionIds": [
+            "6ae0bfcf4f51186cb3382115",
+            "6ae0bfcf4f51186cb3382116"
+          ],
+          "versionNumbers": [
+            1,
+            2
+          ],
+          "statistics": {
+            "scope": "all_surveys",
+            "participatingSurveyCount": 2,
+            "suppression": {
+              "applied": false,
+              "minimumDistinctRespondents": 5
+            },
+            "responseCount": 11,
+            "reachedCount": 11,
+            "answeredCount": 11,
+            "textAnswerCounts": [
+              {
+                "value": "重复答案",
+                "count": 10
+              }
+            ]
+          }
+        },
+        {
+          "versionIds": [
+            "6ae0bfcf4f51186cb3382117"
+          ],
+          "versionNumbers": [
+            3
+          ],
+          "statistics": {
+            "scope": "all_surveys",
+            "participatingSurveyCount": 1,
+            "suppression": {
+              "applied": false,
+              "minimumDistinctRespondents": 5
+            },
+            "responseCount": 5,
+            "reachedCount": 5,
+            "answeredCount": 5,
+            "textAnswerCounts": [
+              {
+                "value": "其他版本答案",
+                "count": 5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "version2Statistics": {
+      "scope": "all_surveys",
+      "participatingSurveyCount": 1,
+      "suppression": {
+        "applied": false,
+        "minimumDistinctRespondents": 5
+      },
+      "responseCount": 6,
+      "reachedCount": 6,
+      "answeredCount": 6,
+      "textAnswerCounts": [
+        {
+          "value": "重复答案",
+          "count": 5
+        }
+      ]
+    },
+    "passed": true
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "execution": "AI-assisted Edge browser automation using Playwright",
+  "scenarioSetup": "Surveys, reusable question, sharing and publishing prepared manually by the user",
+  "scope": "127.0.0.1:29141/unit6_browser",
+  "submissions": [
+    {
+      "user": "unit6_r1",
+      "surveyId": "6ae0bbb84f51186cb3382104",
+      "title": "手验年龄A",
+      "value": 22,
+      "responseId": "6ae0be234f51186cb3382109",
+      "submittedAt": "2026-10-27T15:07:15.580Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r1",
+      "surveyId": "6ae0bc494f51186cb3382107",
+      "title": "手验年龄B",
+      "value": 42,
+      "responseId": "6ae0be244f51186cb338210a",
+      "submittedAt": "2026-10-27T15:07:16.467Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r2",
+      "surveyId": "6ae0bbb84f51186cb3382104",
+      "title": "手验年龄A",
+      "value": 22,
+      "responseId": "6ae0be284f51186cb338210b",
+      "submittedAt": "2026-10-27T15:07:20.784Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r2",
+      "surveyId": "6ae0bc494f51186cb3382107",
+      "title": "手验年龄B",
+      "value": 42,
+      "responseId": "6ae0be294f51186cb338210c",
+      "submittedAt": "2026-10-27T15:07:21.157Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r3",
+      "surveyId": "6ae0bbb84f51186cb3382104",
+      "title": "手验年龄A",
+      "value": 22,
+      "responseId": "6ae0be2d4f51186cb338210d",
+      "submittedAt": "2026-10-27T15:07:25.094Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r3",
+      "surveyId": "6ae0bc494f51186cb3382107",
+      "title": "手验年龄B",
+      "value": 42,
+      "responseId": "6ae0be2d4f51186cb338210e",
+      "submittedAt": "2026-10-27T15:07:25.470Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r4",
+      "surveyId": "6ae0bbb84f51186cb3382104",
+      "title": "手验年龄A",
+      "value": 22,
+      "responseId": "6ae0be314f51186cb338210f",
+      "submittedAt": "2026-10-27T15:07:29.942Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r4",
+      "surveyId": "6ae0bc494f51186cb3382107",
+      "title": "手验年龄B",
+      "value": 42,
+      "responseId": "6ae0be324f51186cb3382110",
+      "submittedAt": "2026-10-27T15:07:30.351Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r5",
+      "surveyId": "6ae0bbb84f51186cb3382104",
+      "title": "手验年龄A",
+      "value": 22,
+      "responseId": "6ae0be354f51186cb3382111",
+      "submittedAt": "2026-10-27T15:07:33.578Z",
+      "method": "browser fill and submit"
+    },
+    {
+      "user": "unit6_r5",
+      "surveyId": "6ae0bc494f51186cb3382107",
+      "title": "手验年龄B",
+      "value": 42,
+      "responseId": "6ae0be354f51186cb3382112",
+      "submittedAt": "2026-10-27T15:07:33.967Z",
+      "method": "browser fill and submit"
+    }
+  ],
+  "completed": true,
+  "statistics": {
+    "scope": "all_surveys",
+    "participatingSurveyCount": 2,
+    "suppression": {
+      "applied": false,
+      "minimumDistinctRespondents": 5
+    },
+    "responseCount": 10,
+    "reachedCount": 10,
+    "answeredCount": 10,
+    "average": 32,
+    "numericDistribution": [
+      {
+        "lowerBound": 20,
+        "upperBound": 25,
+        "upperInclusive": false,
+        "count": 5
+      },
+      {
+        "lowerBound": 25,
+        "upperBound": 30,
+        "upperInclusive": false,
+        "count": 0
+      },
+      {
+        "lowerBound": 30,
+        "upperBound": 35,
+        "upperInclusive": false,
+        "count": 0
+      },
+      {
+        "lowerBound": 35,
+        "upperBound": 40,
+        "upperInclusive": false,
+        "count": 0
+      },
+      {
+        "lowerBound": 40,
+        "upperBound": 45,
+        "upperInclusive": true,
+        "count": 5
+      }
+    ]
+  },
+  "finishedAt": "2026-10-27T15:07:37.154Z"
+}

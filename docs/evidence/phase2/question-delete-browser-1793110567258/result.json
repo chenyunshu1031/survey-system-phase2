@@ -1,0 +1,9 @@
+{
+  "result": "passed",
+  "url": "http://127.0.0.1:15173/surveys/6ae0b2344f51186cb33820fb/edit",
+  "testSurvey": "删除入口自动验证-1793110580235",
+  "cancelPreservedQuestion": true,
+  "confirmedDeleteRemovedQuestion": true,
+  "reloadStillEmpty": true,
+  "environment": "isolated frontend 15173/API 18000/MongoDB 29141"
+}

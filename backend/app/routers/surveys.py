@@ -11,6 +11,7 @@ from app.models import JumpRulesInput, QuestionInput, SurveyInput, SurveyUpdate
 from app.security import current_user
 from app.services.jumps import validate_jump_rules
 from app.services.surveys import configuration_revision_filter, owned_survey, question_view, survey_view
+from app.services.sharing import validate_source_reference
 
 
 router = APIRouter(prefix="/api/v1/surveys", tags=["surveys"])
@@ -105,6 +106,7 @@ def publish_survey(survey_id: str, user: dict = Depends(current_user), db: Datab
         raise HTTPException(status_code=409, detail="至少添加一道题目才能发布")
     for question in questions:
         try:
+            validate_source_reference(db, question)
             option_ids = [option["id"] for option in question["options"]]
             if any(not isinstance(option_id, str) or not option_id or len(option_id) > 100 for option_id in option_ids) or len(option_ids) != len(set(option_ids)):
                 raise ValueError("选项标识无效或重复")

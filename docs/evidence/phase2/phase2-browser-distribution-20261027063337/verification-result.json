@@ -1,0 +1,90 @@
+{
+  "case": "B01 数字题区间分布与授权",
+  "method": "独立Microsoft Edge无用户资料浏览器会话，由Playwright驱动真实页面操作与截图",
+  "environment": {
+    "frontend": "http://127.0.0.1:15173/",
+    "api": "http://127.0.0.1:18000",
+    "mongodb": "127.0.0.1:29141/unit6_browser",
+    "dataDirectory": "C:\\Users\\24222\\Desktop\\数据库\\survey-system\\tmp\\unit6-fresh-719cbebfc441447fadbdcd3a827bca94"
+  },
+  "startedAt": "2026-10-27T06:33:37.522Z",
+  "finishedAt": "2026-10-27T06:37:40.358Z",
+  "logicalQuestionId": "6ae045c5c136e94bb186ebd4",
+  "versionCount": 1,
+  "surveys": {
+    "A": {
+      "id": "6ae04613c136e94bb186ebd7",
+      "status": "published",
+      "instanceCount": 1,
+      "answers": {
+        "22.0": 5
+      }
+    },
+    "B": {
+      "id": "6ae04617c136e94bb186ebd9",
+      "status": "published",
+      "instanceCount": 1,
+      "answers": {
+        "70.0": 1,
+        "42.0": 5
+      }
+    }
+  },
+  "shareExists": true,
+  "consentRevokedAtEnd": true,
+  "actualDisplay": {
+    "beforeConsent": "参与问卷 1 份 · 范围：本人问卷及明确授权的他人问卷\n\n答卷 5 份 · 到达 5 份 · 回答 5 份\n\n数字平均值：22\n\n数值分布（按答卷计）\n\n区间根据当前回答值划分；新增答卷后边界可能变化。\n\n等于 22\n5份",
+    "authorized": "参与问卷 2 份 · 范围：本人问卷及明确授权的他人问卷\n\n答卷 10 份 · 到达 10 份 · 回答 10 份\n\n数字平均值：32\n\n数值分布（按答卷计）\n\n区间根据当前回答值划分；新增答卷后边界可能变化。\n\n20 ≤ 数值 < 25\n5份\n25 ≤ 数值 < 30\n0份\n30 ≤ 数值 < 35\n0份\n35 ≤ 数值 < 40\n0份\n40 ≤ 数值 ≤ 45\n5份",
+    "sparseBinSuppressed": "参与问卷 2 份 · 范围：本人问卷及明确授权的他人问卷\n\n样本不足（任一非零统计少于 5 名不同填写者），答卷计数、均值和分布已抑制。",
+    "afterRevocation": "参与问卷 1 份 · 范围：本人问卷及明确授权的他人问卷\n\n答卷 5 份 · 到达 5 份 · 回答 5 份\n\n数字平均值：22\n\n数值分布（按答卷计）\n\n区间根据当前回答值划分；新增答卷后边界可能变化。\n\n等于 22\n5份"
+  },
+  "screenshotFiles": [
+    {
+      "file": "01-author-version1.png",
+      "sha256": "9fd3c01713d0c0bde6e2a507625f749f67ada01c379c0f299ac00a3819b32662",
+      "bytes": 159767
+    },
+    {
+      "file": "02-A-published.png",
+      "sha256": "e9e11a4f9d2092544e6ec3c68b4565f239295e065951ff4ac3af2bda8fa6ae65",
+      "bytes": 176320
+    },
+    {
+      "file": "03-B-published-unconsented.png",
+      "sha256": "55ba467db54e9e253b82a057a8fc1144f9e570c487be586130919afd9ccc9bae",
+      "bytes": 193368
+    },
+    {
+      "file": "04-A-only-five-answers.png",
+      "sha256": "22eed3c0cbd0d2d564b69241a9427669965f431ad8f80962db7de09f0f0a9acd",
+      "bytes": 201653
+    },
+    {
+      "file": "05-B-granted.png",
+      "sha256": "c92f436dd8d3f24f0b391cf330d1f330588da5c9ffe758f64772191413707d66",
+      "bytes": 197526
+    },
+    {
+      "file": "06-two-surveys-ten-answers.png",
+      "sha256": "f17e7686f15f1fc7ac186cfdbfab464fc0bfa09fcbb7fb5139e252806c8d689c",
+      "bytes": 214176
+    },
+    {
+      "file": "07-sparse-bin-suppressed.png",
+      "sha256": "9a5552634bedc3719bc3032f748c961a2ae5dfee1ade2541e1992a3c2c7805b2",
+      "bytes": 190231
+    },
+    {
+      "file": "08-B-revoked.png",
+      "sha256": "51f15af9bf1a173b0227197fce3fb8d212463e995678f60c2a9031c79cbeb3d1",
+      "bytes": 196678
+    },
+    {
+      "file": "09-revoked-A-only.png",
+      "sha256": "22eed3c0cbd0d2d564b69241a9427669965f431ad8f80962db7de09f0f0a9acd",
+      "bytes": 201653
+    }
+  ],
+  "result": "通过",
+  "scope": "页面操作和截图在隔离库完成；未使用正式27017业务库。"
+}

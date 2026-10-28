@@ -17,6 +17,10 @@ export function clearToken(): void {
   sessionToken.value = null
 }
 
+export class ApiError extends Error {
+  constructor(message: string, public readonly status: number) { super(message) }
+}
+
 export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   const headers = new Headers(init.headers)
   headers.set('Content-Type', 'application/json')
@@ -31,7 +35,7 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
       : Array.isArray(detail) ? detail.map((item: { msg?: string }) => item.msg || '输入有误').join('；') : '请求失败，请稍后重试'
     // An old request must not invalidate a session established after it started.
     if (response.status === 401 && token && readToken() === token) clearToken()
-    throw new Error(message)
+    throw new ApiError(message, response.status)
   }
   return body as T
 }

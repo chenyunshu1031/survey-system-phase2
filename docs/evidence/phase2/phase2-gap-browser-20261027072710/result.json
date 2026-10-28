@@ -1,0 +1,16 @@
+{
+  "result": "通过",
+  "browser": "Edge UI via Playwright",
+  "frontend": "http://127.0.0.1:15173",
+  "isolatedDatabase": "127.0.0.1:29141/unit6_browser",
+  "allSurveysDisplay": "参与问卷 2 份 · 范围：所有使用此版本的问卷\n\n样本不足（任一非零统计少于 5 名不同填写者），答卷计数、均值和分布已抑制。",
+  "bankRenamed": "B02已改名题库-20261027072710",
+  "importedQuestion": "B02可复用年龄-20261027072710",
+  "screenshots": [
+    "01-all-surveys-no-consent.png",
+    "02-bank-renamed.png",
+    "03-bank-removed.png",
+    "04-old-question-saved.png",
+    "05-imported-version.png"
+  ]
+}
